@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,23 +29,23 @@ public class Pet {
 
     private String name;
 
-    @Embedded
-    private Category category;
+    private String category;
 
-//    private photoUrls photoUrls;
+    private String photoUrls;
 
-    @Embedded
-    private Tag tags;
+    private String tags;
 
     @Enumerated(EnumType.STRING)
     private PetStatus status;
 
+    private int is_deleted;
 
-    public static Pet of(String name, Category category, Tag tags, PetStatus status){
+//    public static Pet of(String name, Category category, Tag tags, PetStatus status){
+    public static Pet of(String name, String category, String tags, PetStatus status){
         return Pet.builder()
             .name(name)
-            .category(category)
-            .tags(tags)
+//            .category(category)
+//            .tags(tags)
             .status(status)
             .build();
     }

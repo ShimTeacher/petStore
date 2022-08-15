@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-@Embeddable
 public class Tag {
 
     @Id

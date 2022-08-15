@@ -8,7 +8,7 @@ import perstore.pet.entity.Tag;
 
 @Data
 @Builder
-public class PetCreateResponse {
+public class PetGetResponse {
 
     private int id;
 
@@ -16,7 +16,7 @@ public class PetCreateResponse {
 
     private Category category;
 
-//    private photoUrls photoUrls;
+    //    private photoUrls photoUrls;
 
     private Tag tags;
 
