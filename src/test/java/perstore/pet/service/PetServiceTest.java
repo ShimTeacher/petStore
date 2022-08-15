@@ -14,6 +14,7 @@ import perstore.pet.common.NotFoundException;
 import perstore.pet.common.PetStoreException;
 import perstore.pet.dto.PetCreatRequest;
 import perstore.pet.dto.PetCreateResponse;
+import perstore.pet.dto.PetGetResponse;
 import perstore.pet.entity.Pet;
 import perstore.pet.entity.PetStatus;
 import perstore.pet.entity.Tag;
@@ -54,7 +55,6 @@ class PetServiceTest {
 //        pet.setCategory(pet.getCategory());
 
         //when
-//        when(addressRepository.findAll()).thenReturn(List.of(address1, address2, address3, address4));
         when(petRepository.findById(1)).thenReturn(Optional.of(pet));
 
         PetCreatRequest mod1 = PetCreatRequest.builder()
@@ -69,30 +69,74 @@ class PetServiceTest {
         assertEquals("pet2",pet.getName());
     }
 
+//    @Test
+//    @DisplayName("펫을 스토어에 추가")
+//    void creatPet() {
+//        PetService petService = new PetService(petRepository);
+//
+//        //given
+//        PetCreatRequest mod1 = PetCreatRequest.builder()
+//            .id(1)
+//            .name("pet1")
+//            .category("category1")
+//            .tags("tag1")
+//            .status(PetStatus.PENDING)
+//            .build();
+//
+//
+//        //when
+//
+//        petService.creat(mod1);
+//
+//        when(petRepository.findAll()).thenReturn(List.of(pet));
+//
+//        //then
+//        assertEquals("pet1",petService.getOne(1).getName());
+//    }
+
     @Test
-    @DisplayName("펫을 스토어에 추가")
-    void creat() {
+    @DisplayName("펫 하나 조회")
+    void getOne(){
         PetService petService = new PetService(petRepository);
 
         //given
-        PetCreatRequest mod1 = PetCreatRequest.builder()
-            .id(1)
-            .name("pet1")
-            .category("category1")
-            .tags("tag1")
-            .status(PetStatus.PENDING)
-            .build();
+        Pet pet = new Pet();
+        pet.setId(1);
+        pet.setName("pet1");
+        pet.setStatus(PetStatus.AVAILABLE);
+//        pet.setTags(pet.getTags());
+        pet.setCategory(pet.getCategory());
 
         //when
-        petService.creat(mod1);
+        when(petRepository.findById(1)).thenReturn(Optional.of(pet));
 
-
-        when(petRepository.findAll()).thenReturn(mod1);
+        PetGetResponse newPet = petService.getOne(1);
+//        petService.getStatus(PetStatus.AVAILABLE);
 
         //then
-        assertEquals("dog1",petService.getOne(1).getName());
-        assertEquals("Category2",petService.getOne(2).getCategory());
-        assertEquals("tag3",petService.getOne(3).getTags());
-        assertEquals(PetStatus.AVAILABLE,petService.getOne(3).getStatus());
+        assertEquals("pet1", newPet.getName());
+//        assertEquals(PetStatus.AVAILABLE, newPet.getStatus());
     }
+
+//    @Test
+//    @DisplayName("펫 status 조회")
+//    void getStatus(){
+//        PetService petService = new PetService(petRepository);
+//
+//        //given
+//        Pet pet = new Pet();
+//        pet.setId(1);
+//        pet.setName("pet1");
+//        pet.setStatus(PetStatus.AVAILABLE);
+////        pet.setTags(pet.getTags());
+////        pet.setCategory(pet.getCategory());
+//
+//        //when
+//        when(petRepository.findById(1)).thenReturn(Optional.of(pet));
+//
+//        PetGetResponse status = petService.getStatus(PetStatus.AVAILABLE);
+//
+//        //then
+//        assertEquals(PetStatus.AVAILABLE, status.getStatus());
+//    }
 }

@@ -7,6 +7,7 @@ import perstore.pet.dto.PetCreatRequest;
 import perstore.pet.dto.PetCreateResponse;
 import perstore.pet.dto.PetGetResponse;
 import perstore.pet.entity.Pet;
+import perstore.pet.entity.PetStatus;
 import perstore.pet.repository.PetRepository;
 
 @Service
@@ -42,8 +43,8 @@ public class PetService {
 
 
         newPet.setName(petCreatRequest.getName());
-//        newPet.setCategory(petCreatRequest.getCategory());
-//        newPet.setTags(petCreatRequest.getTags());
+        newPet.setCategory(petCreatRequest.getCategory());
+        newPet.setTags(petCreatRequest.getTags());
         newPet.setStatus(petCreatRequest.getStatus());
 
         petRepository.save(newPet);
@@ -83,10 +84,21 @@ public class PetService {
             .build();
     }
 
-    public void deletePet(int id) {
-        Pet pet = petRepository.findById(id).orElseThrow(() -> new NotFoundException());
-        pet.setIs_deleted(1);
+//    public void deletePet(int id) {
+//        Pet pet = petRepository.findById(id).orElseThrow(() -> new NotFoundException());
+//        pet.setIs_deleted(1);
+//
+//        petRepository.save(pet);
+//    }
 
-        petRepository.save(pet);
+    public PetGetResponse getStatus(PetStatus status) {
+        Pet pet = petRepository.findPetStatus(status);
+        return PetGetResponse.builder()
+            .id(pet.getId())
+            .name(pet.getName())
+//            .category(pet.getCategory())
+//            .tags(pet.getTags())
+            .status(pet.getStatus())
+            .build();
     }
 }

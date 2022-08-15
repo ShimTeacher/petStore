@@ -1,6 +1,7 @@
 package perstore.pet.dto;
 
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import perstore.pet.entity.Category;
@@ -15,7 +16,7 @@ public class PetCreatRequest {
 
     private String name;
 
-    private String category;
+    private List<Category> category;
 
     //    private photoUrls photoUrls;
 
