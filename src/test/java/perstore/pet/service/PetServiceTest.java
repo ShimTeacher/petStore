@@ -105,17 +105,18 @@ class PetServiceTest {
         pet.setName("pet1");
         pet.setStatus(PetStatus.AVAILABLE);
 //        pet.setTags(pet.getTags());
+
 //        pet.setCategory(pet.getCategory());
 
         //when
         when(petRepository.findById(1)).thenReturn(Optional.of(pet));
 
         PetGetResponse newPet = petService.getOne(1);
-//        petService.getStatus(PetStatus.AVAILABLE);
 
         //then
         assertEquals("pet1", newPet.getName());
         assertEquals(PetStatus.AVAILABLE, newPet.getStatus());
+
     }
 
     @Test
@@ -124,6 +125,7 @@ class PetServiceTest {
         PetService petService = new PetService(petRepository);
 
         //given
+
         Pet pet1 = new Pet();
         pet1.setId(1);
         pet1.setName("pet1");
@@ -144,27 +146,30 @@ class PetServiceTest {
 
     @Test
     @DisplayName("펫 status 다건 조회")
+
     void 펫_status_다건_조회(){
+
         PetService petService = new PetService(petRepository);
 
         //given
         Pet pet1 = new Pet();
         pet1.setId(1);
         pet1.setName("pet1");
-        pet1.setStatus(PetStatus.AVAILABLE);
+
+        pet1.setStatus(PetStatus.SOLD);
 
         Pet pet2 = new Pet();
-        pet2.setId(1);
+        pet2.setId(2);
         pet2.setName("pet2");
-        pet2.setStatus(PetStatus.AVAILABLE);
+        pet2.setStatus(PetStatus.SOLD);
 
         //when
-//        when(petRepository.findById(1)).thenReturn(Optional.of(pet));
-        when(petRepository.findPetStatus(PetStatus.AVAILABLE)).thenReturn(List.of(pet1, pet2));
+        when(petRepository.findPetStatus(PetStatus.SOLD)).thenReturn(List.of(pet1,pet2));
 
-        List<PetGetResponse> newPetList = petService.getStatus(PetStatus.AVAILABLE);
+        List<PetGetResponse> newPetList = petService.getStatus(PetStatus.SOLD);
 
         //then
         assertEquals(2, newPetList.size());
     }
 }
+

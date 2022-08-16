@@ -20,7 +20,7 @@ public class PetCreatRequest {
 
     //    private photoUrls photoUrls;
 
-    private String tags;
+    private List<Tag> tags;
 
     private PetStatus status;
 }

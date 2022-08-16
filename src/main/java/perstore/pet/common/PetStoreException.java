@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 
+
+@Getter
 @AllArgsConstructor
 @Getter
 public class PetStoreException extends RuntimeException{

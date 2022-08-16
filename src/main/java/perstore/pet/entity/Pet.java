@@ -47,7 +47,7 @@ public class Pet {
 
 
 //    public static Pet of(String name, Category category, Tag tags, PetStatus status){
-    public static Pet of(String name, List<Category> category, String tags, PetStatus status){
+    public static Pet of(String name, List<Category> category, List<Tag> tags, PetStatus status){
         return Pet.builder()
             .name(name)
 //            .category(category)

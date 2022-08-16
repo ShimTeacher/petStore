@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +19,6 @@ public class Category {
 
     private String name;
 
-    @ManyToOne
+    @OneToOne
     private Pet pet;
 }

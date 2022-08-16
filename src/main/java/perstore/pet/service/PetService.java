@@ -95,7 +95,8 @@ public class PetService {
 
     public List<PetGetResponse> getStatus(PetStatus status) {
         List<Pet> pet = petRepository.findPetStatus(status);
-        return pet.stream().map( item -> PetGetResponse.builder()
+
+        return pet.stream().map(item -> PetGetResponse.builder()
             .id(item.getId())
             .name(item.getName())
             .status(item.getStatus())
@@ -103,6 +104,5 @@ public class PetService {
             .tags(item.getTags())
             .build()
         ).collect(Collectors.toList());
-
     }
 }
