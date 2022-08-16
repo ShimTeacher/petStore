@@ -104,39 +104,64 @@ class PetServiceTest {
         pet.setId(1);
         pet.setName("pet1");
         pet.setStatus(PetStatus.AVAILABLE);
-//        pet.setTags(pet.getTags());
-        pet.setCategory(pet.getCategory());
+        pet.setTags(pet.getTags());
+//        pet.setCategory(pet.getCategory());
 
         //when
         when(petRepository.findById(1)).thenReturn(Optional.of(pet));
 
         PetGetResponse newPet = petService.getOne(1);
-//        petService.getStatus(PetStatus.AVAILABLE);
 
         //then
         assertEquals("pet1", newPet.getName());
-//        assertEquals(PetStatus.AVAILABLE, newPet.getStatus());
     }
 
-//    @Test
-//    @DisplayName("펫 status 조회")
-//    void getStatus(){
-//        PetService petService = new PetService(petRepository);
-//
-//        //given
-//        Pet pet = new Pet();
-//        pet.setId(1);
-//        pet.setName("pet1");
-//        pet.setStatus(PetStatus.AVAILABLE);
-////        pet.setTags(pet.getTags());
-////        pet.setCategory(pet.getCategory());
-//
-//        //when
-//        when(petRepository.findById(1)).thenReturn(Optional.of(pet));
-//
-//        PetGetResponse status = petService.getStatus(PetStatus.AVAILABLE);
-//
-//        //then
-//        assertEquals(PetStatus.AVAILABLE, status.getStatus());
-//    }
+    @Test
+    @DisplayName("펫 status 조회")
+    void 펫_단건_조회(){
+        PetService petService = new PetService(petRepository);
+
+        //given
+        Pet pet = new Pet();
+        pet.setId(1);
+        pet.setName("pet1");
+        pet.setStatus(PetStatus.AVAILABLE);
+//        pet.setTags(pet.getTags());
+//        pet.setCategory(pet.getCategory());
+
+        //when
+        when(petRepository.findPetStatus(PetStatus.AVAILABLE)).thenReturn(List.of(pet));
+
+        List<PetGetResponse> newPetList = petService.getStatus(PetStatus.AVAILABLE);
+        PetGetResponse petGetResponse = newPetList.get(0);
+
+        //then
+        assertEquals(1, newPetList.size());
+        assertEquals(PetStatus.AVAILABLE, petGetResponse.getStatus());
+    }
+
+    @Test
+    @DisplayName("펫 status 다건 조회")
+    void 펫_다건_조회(){
+        PetService petService = new PetService(petRepository);
+
+        //given
+        Pet pet1 = new Pet();
+        pet1.setId(1);
+        pet1.setName("pet1");
+        pet1.setStatus(PetStatus.SOLD);
+
+        Pet pet2 = new Pet();
+        pet2.setId(2);
+        pet2.setName("pet2");
+        pet2.setStatus(PetStatus.SOLD);
+
+        //when
+        when(petRepository.findPetStatus(PetStatus.SOLD)).thenReturn(List.of(pet1,pet2));
+
+        List<PetGetResponse> newPetList = petService.getStatus(PetStatus.SOLD);
+
+        //then
+        assertEquals(2, newPetList.size());
+    }
 }

@@ -11,6 +11,6 @@ import perstore.pet.entity.Pet;
 public interface PetRepository extends JpaRepository<Pet, Integer> {
 
     @Query("Select p from Pet p where p.status in :status")
-    Pet findPetStatus(@Param("status") Enum status);
+    List<Pet> findPetStatus(@Param("status") Enum status);
 
 }

@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,19 +34,20 @@ public class Pet {
 
     private String name;
 
-    @OneToMany(mappedBy = "pet")
-    private List<Category> category;
+    @OneToOne
+    private Category category;
 
     private String photoUrls;
 
-    private Tag tags;
+    @OneToMany(mappedBy = "pet")
+    private List<Tag> tags;
 
     @Enumerated(EnumType.STRING)
     private PetStatus status;
 
 
 //    public static Pet of(String name, Category category, Tag tags, PetStatus status){
-    public static Pet of(String name, List<Category> category, String tags, PetStatus status){
+    public static Pet of(String name, List<Category> category, List<Tag> tags, PetStatus status){
         return Pet.builder()
             .name(name)
 //            .category(category)

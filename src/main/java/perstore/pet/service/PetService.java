@@ -1,5 +1,7 @@
 package perstore.pet.service;
 
+import java.util.List;
+import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import perstore.pet.common.NotFoundException;
@@ -43,8 +45,8 @@ public class PetService {
 
 
         newPet.setName(petCreatRequest.getName());
-        newPet.setCategory(petCreatRequest.getCategory());
-        newPet.setTags(petCreatRequest.getTags());
+//        newPet.setCategory(petCreatRequest.getCategory());
+//        newPet.setTags(petCreatRequest.getTags());
         newPet.setStatus(petCreatRequest.getStatus());
 
         petRepository.save(newPet);
@@ -91,14 +93,15 @@ public class PetService {
 //        petRepository.save(pet);
 //    }
 
-    public PetGetResponse getStatus(PetStatus status) {
-        Pet pet = petRepository.findPetStatus(status);
-        return PetGetResponse.builder()
-            .id(pet.getId())
-            .name(pet.getName())
-//            .category(pet.getCategory())
-//            .tags(pet.getTags())
-            .status(pet.getStatus())
-            .build();
+    public List<PetGetResponse> getStatus(PetStatus status) {
+        List<Pet> pet = petRepository.findPetStatus(status);
+        return pet.stream().map(item -> PetGetResponse.builder()
+            .id(item.getId())
+            .name(item.getName())
+            .status(item.getStatus())
+            .category(item.getCategory())
+            .tags(item.getTags())
+            .build()
+        ).collect(Collectors.toList());
     }
 }
