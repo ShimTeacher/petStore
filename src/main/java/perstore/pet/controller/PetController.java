@@ -1,5 +1,6 @@
 package perstore.pet.controller;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -46,7 +47,7 @@ public class PetController {
      */
     @GetMapping("/pet/findByStatus")
     public ResponseEntity getStatus(@RequestParam PetStatus status){
-        PetGetResponse petStatus = petService.getStatus(status);
+        List<PetGetResponse> petStatus = petService.getStatus(status);
         return ResponseEntity.ok().body(petStatus);
     }
 

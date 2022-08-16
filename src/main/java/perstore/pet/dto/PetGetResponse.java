@@ -1,5 +1,6 @@
 package perstore.pet.dto;
 
+import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 import perstore.pet.entity.Category;
@@ -18,7 +19,7 @@ public class PetGetResponse {
 
     //    private photoUrls photoUrls;
 
-    private Tag tags;
+    private List<Tag> tags;
 
     private PetStatus status;
 }
